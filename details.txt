@@ -1,0 +1,1 @@
+koi_disposition - 0= FALSE POSITIVE, 1= CANDIDATE, 2=CONFIRMED
