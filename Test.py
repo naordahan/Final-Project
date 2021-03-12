@@ -8,10 +8,12 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 import tensorflow as tf
 
+# https://www.tensorflow.org/tutorials/structured_data/feature_columns
+
+
 data_folder_csv = Path("csv_ready.csv")
 dataset = pd.read_csv(data_folder_csv, encoding='utf-8')
 df = pd.DataFrame(dataset)  # dataframe for easier handling of the data.
-
 
 # create a scaler object, this object will scale all values between 0-1
 scaler = MinMaxScaler()
@@ -37,7 +39,7 @@ def df_to_dataset(dataframe, shuffle=True, batch_size=32):
 	return ds
 
 
-batch_size = 16
+batch_size = 128
 train_ds = df_to_dataset(train, batch_size=batch_size)
 val_ds = df_to_dataset(val, shuffle=False, batch_size=batch_size)
 test_ds = df_to_dataset(test, shuffle=False, batch_size=batch_size)
@@ -90,20 +92,20 @@ feature_layer = tf.keras.layers.DenseFeatures(feature_columns)
 
 model = tf.keras.Sequential([
 	feature_layer,
-	layers.Dense(128, activation='relu'),
+	layers.Dense(56, activation='leakyrelu'),
 	layers.Dense(128, activation='relu'),
 	layers.Dropout(.1),
 	layers.Dense(1)
 ])
 
 model.compile(optimizer='adam',
-              loss='sparse_categorical_crossentropy',
-              metrics=['accuracy'],
-              callbacks=callbacks)
+              loss='categorical_crossentropy',
+              metrics=['accuracy'])
 
 model.fit(train_ds,
           validation_data=val_ds,
-          epochs=50)
+          epochs=10,
+          callbacks=callbacks)
 
 loss, accuracy = model.evaluate(test_ds)
 print("Accuracy", accuracy)
