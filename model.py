@@ -51,7 +51,11 @@ def prepare_targets(y_train, y_test):
     return y_train_enc, y_test_enc
 
 
-X, y = load_dataset("csv_ready.csv")
+df = pd.read_csv("csv_ready1.csv")
+
+df = df.fillna(value=0.5)
+df.to_csv("csv_ready1.csv")
+X, y = load_dataset("csv_ready1.csv")
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=1)
 
