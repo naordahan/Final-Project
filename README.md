@@ -48,7 +48,7 @@ dataset that comes from NASA\JPL databases and choose from it the features that 
 [![Linkedin](https://img.shields.io/badge/-linkedin-grey?logo=linkedin)](https://www.linkedin.com/in/naordahan/)
 
 
-<img src="Photos/space.jpg" height="300px" />
+<img src="space.jpg" height="300px" />
 
 
-<img src="Photos/stars.jpg" height="300px" />
+<img src="stars.jpg" height="300px" />
